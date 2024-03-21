@@ -1,26 +1,33 @@
+import { useBearStore } from "../stores/itemsStore";
 import Button from "./shared/Button";
-import useItemContext from "../hooks/useItemContext";
 
 const ButtonGroup = () => {
-  const { onRemoveAllItems, onReset, onMarkAllInComplete, onMarkAllComplete } =
-    useItemContext();
+  const markAllComplete = useBearStore((state) => state.markAllComplete);
+  const markAllInComplete = useBearStore((state) => state.markAllInComplete);
+  const removeAllItems = useBearStore((state) => state.removeAllItems);
+  const resetToInitial = useBearStore((state) => state.resetToInitial);
+
   return (
     <div className="button-group">
       <Button
         variant="secondary"
         text="Mark all as complete"
-        onClick={onMarkAllComplete}
+        onClick={markAllComplete}
       />
       <Button
         variant="secondary"
         text="Mark all as incomplete"
-        onClick={onMarkAllInComplete}
+        onClick={markAllInComplete}
       />
-      <Button variant="secondary" text="Reset to initial" onClick={onReset} />
+      <Button
+        variant="secondary"
+        text="Reset to initial"
+        onClick={resetToInitial}
+      />
       <Button
         variant="secondary"
         text="Remove all items"
-        onClick={onRemoveAllItems}
+        onClick={removeAllItems}
       />
     </div>
   );

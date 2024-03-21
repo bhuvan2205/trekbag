@@ -1,7 +1,9 @@
-import useItemContext from "../hooks/useItemContext";
+import { useBearStore } from "../stores/itemsStore";
 
 const Counter = () => {
-  const { itemsCount, packedItems } = useItemContext();
+  const items = useBearStore((state) => state.items);
+  const itemsCount = items.length;
+  const packedItems = items?.filter((item) => !!item.packed).length;
   return (
     <p>
       <b>{packedItems}</b> / {itemsCount} items packed

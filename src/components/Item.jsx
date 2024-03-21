@@ -1,5 +1,10 @@
+import { useBearStore } from "../stores/itemsStore";
+
 /* eslint-disable react/prop-types */
-const Item = ({ item, onChangeItem, onDeleteItem }) => {
+const Item = ({ item }) => {
+  const deleteItem = useBearStore((state) => state.deleteItem);
+  const toggleItem = useBearStore((state) => state.toggleItem);
+
   const { text, packed } = item || {};
 
   return (
@@ -8,11 +13,11 @@ const Item = ({ item, onChangeItem, onDeleteItem }) => {
         <input
           type="checkbox"
           checked={packed}
-          onChange={() => onChangeItem(item.id)}
+          onChange={() => toggleItem(item.id)}
         />
         {text}
       </label>
-      <button onClick={() => onDeleteItem(item.id)}>❌</button>
+      <button onClick={() => deleteItem(item.id)}>❌</button>
     </li>
   );
 };

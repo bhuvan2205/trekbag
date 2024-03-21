@@ -2,10 +2,11 @@ import { useMemo, useState } from "react";
 import Item from "./Item";
 import EmptyView from "./ui/EmptyView";
 import Select from "react-select";
-import useItemContext from "../hooks/useItemContext";
+import { useBearStore } from "../stores/itemsStore";
 
 const ItemList = () => {
-  const { items, handleDeleteItem, handleToggleItem } = useItemContext();
+  const items = useBearStore((state) => state.items);
+
   const options = [
     { value: "default", label: "Sort by default" },
     { value: "packed", label: "Sort by packed" },
@@ -40,14 +41,7 @@ const ItemList = () => {
           </section>
         )}
         {items?.length ? (
-          sortedItems?.map((item) => (
-            <Item
-              item={item}
-              key={item.id}
-              onChangeItem={handleToggleItem}
-              onDeleteItem={handleDeleteItem}
-            />
-          ))
+          sortedItems?.map((item) => <Item item={item} key={item.id} />)
         ) : (
           <EmptyView />
         )}

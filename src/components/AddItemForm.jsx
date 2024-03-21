@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import Button from "./shared/Button";
-import useItemContext from "../hooks/useItemContext";
+import { useBearStore } from "../stores/itemsStore";
 
 const AddItemForm = () => {
   const [itemText, setItemText] = useState("");
   const inputRef = useRef(null);
-  const { handleAddItem } = useItemContext();
+  const addItem = useBearStore((state) => state.addItem);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +16,7 @@ const AddItemForm = () => {
       return;
     }
 
-    handleAddItem(itemText);
+    addItem(itemText);
     setItemText("");
   };
 
